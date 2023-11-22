@@ -19,7 +19,9 @@ class State(BaseModel, Base):
         name = ""
 
         @property
+        @property
         def cities(self):
             from models import storage
-            file_cities = storage.all(storage.classes['City']).values()
-            return [city for city in file_cities if city.state_id == self.id]
+            all_cities = storage.all(storage.classes['City'])
+            return [city for city in all_cities.values() if getattr(city, 'state_id') == self.id]
+
